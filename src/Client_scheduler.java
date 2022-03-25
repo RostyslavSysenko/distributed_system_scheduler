@@ -58,7 +58,7 @@ class Client_scheduler {
         send("OK");
         for (int i = 0; i < numberOfServers; i++) {
             msg = recieve(null);
-            ServerDataModel serverModel = ServerDataModel.parseServerInfoFromGETSALL(msg);
+            Server serverModel = Server.parseServerInfoFromGETSALL(msg);
 
             if (serverModel.cpuCores > maxCores) {
                 maxCores = serverModel.cpuCores;

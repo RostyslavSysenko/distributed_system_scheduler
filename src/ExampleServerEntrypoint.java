@@ -2,7 +2,7 @@ import java.net.*;
 import java.util.Optional;
 import java.io.*;
 
-public class Server_entrypoint {
+public class ExampleServerEntrypoint {
     public static void main(String[] args) {
         Server_example server= new Server_example();
         server.launch(6000);

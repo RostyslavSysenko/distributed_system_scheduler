@@ -1,4 +1,4 @@
-public class ServerDataModel {
+public class Server {
     String name;
     String idAmongName;
     String status;
@@ -8,7 +8,7 @@ public class ServerDataModel {
     int jobsWaiting;
     int jobsExecuting;
 
-    ServerDataModel(String inName,
+    Server(String inName,
             String inIdAmongName,
             String inStatus,
             int inCpuCores,
@@ -26,9 +26,9 @@ public class ServerDataModel {
         jobsExecuting = inJobsExecuting;
     }
 
-    static ServerDataModel parseServerInfoFromGETSALL(String msg){
+    static Server parseServerInfoFromGETSALL(String msg){
         String[] msgArr = msg.split("\\s+");
-        return new ServerDataModel(msgArr[0], msgArr[1], msgArr[2], Integer.parseInt(msgArr[4]), Integer.parseInt(msgArr[5]), Integer.parseInt(msgArr[6]), Integer.parseInt(msgArr[7]), Integer.parseInt(msgArr[8]));
+        return new Server(msgArr[0], msgArr[1], msgArr[2], Integer.parseInt(msgArr[4]), Integer.parseInt(msgArr[5]), Integer.parseInt(msgArr[6]), Integer.parseInt(msgArr[7]), Integer.parseInt(msgArr[8]));
 
     }
 
