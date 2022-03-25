@@ -2,14 +2,14 @@ import java.net.*;
 import java.util.Optional;
 import java.io.*;
 
-public class ServerSideCommunication {
+public class Server_entrypoint {
     public static void main(String[] args) {
-        Server server= new Server();
+        Server_example server= new Server_example();
         server.launch(6000);
     }
 }
 
-class Server {
+class Server_example {
     private ServerSocket serverSocket;   // the communication chanel which our own server opened up for clients to contact us.
     private Socket clientSocket;  // one end of communication channel connecting server to client which initiated communication with us
     private PrintWriter outCommunication; // An object which formats everything we want to send into simple non formatted text and sends it.
