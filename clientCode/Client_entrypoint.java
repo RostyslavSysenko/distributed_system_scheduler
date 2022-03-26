@@ -15,10 +15,7 @@ public class Client_entrypoint {
 
         Client_scheduler client = new Client_scheduler();
         client.start(ip,port);
-        client.runAllToSingleLargestSchedulingAlgorithm();
-
-        //TO-DO: Maybe verify that all jobs are completed?
-
-        client.quit();
+        client.atl_scheduling();
+        client.quit(null);
     }
 }
