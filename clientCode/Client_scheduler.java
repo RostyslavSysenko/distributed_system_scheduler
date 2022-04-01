@@ -35,8 +35,6 @@ class Client_scheduler {
         send("AUTH " + System.getProperty("user.name"));
         recieve(null);
 
-        send("REDY");
-        recieve(null);
     }
 
     public void quit(String quitMsg) {
@@ -60,35 +58,46 @@ class Client_scheduler {
         }
     }
 
-    public void atl_scheduling() {
+    public void lrr_scheduling() {
         String jobStr;
-        boolean noMoreJobsAvail = false;
-        boolean regularJobForScheduling = false;
-        String largestServerType = getServerNameWithMostCores();
+        ServerType largerServerInfo = null;
+        String largestServerName = null;
+        int largestServerCount = 0;
+        int nextInLineServerId = 0;
 
         while (true) {
             send("REDY");
             jobStr = recieve(null);
-            noMoreJobsAvail = Job.noMoreJobsAvail(jobStr);
-            regularJobForScheduling = Job.regularJobForScheduling(jobStr);
 
-            if (noMoreJobsAvail) {
+            //get largest server info if we dont know it yet
+            if(largerServerInfo == null ){
+                largerServerInfo = getServerWithMostCoresInfo();
+                largestServerName = largerServerInfo.name;
+                largestServerCount = largerServerInfo.availableInstances;
+            }
+
+            //Do the scheduling
+            if (Job.noMoreJobsAvail(jobStr)) {
                 break;
-            } else if (regularJobForScheduling) {
-                // schedule job when it is available
-                Job job = Job.parseJobFromREDY(jobStr);
-                send("SCHD " + job.id + " " + largestServerType + " " + 0);
-                recieve(null);
-            } else {
-                // some job yet to be comepleted and response was not a regular JOBN.
+            } else if (Job.regularJobForScheduling(jobStr)) {
+                //schedule to the next available largest server in a line
+                scheduleJob(jobStr, largestServerName, nextInLineServerId);
+                nextInLineServerId = (nextInLineServerId+1) % largestServerCount;
             }
         }
     }
 
-    private String getServerNameWithMostCores() {
+    private void scheduleJob(String jobStr, String largestServerType, int largestServerId) {
+        Job job = Job.parseJobFromREDY(jobStr);
+        send("SCHD " + job.id + " " + largestServerType + " " + largestServerId);
+        recieve(null);
+    }
+
+    private ServerType getServerWithMostCoresInfo() {
         String msg;
         int maxCores = 0;
         String name = "";
+        int serverInstanceCount = 0;
 
         send("GETS All");
         String dataResponse = recieve(null);
@@ -103,17 +112,21 @@ class Client_scheduler {
             if (serverModel.cpuCores > maxCores) {
                 maxCores = serverModel.cpuCores;
                 name = serverModel.name;
+                serverInstanceCount = 0;
+            }
+            if (serverModel.name.equals(name)){
+                serverInstanceCount =serverInstanceCount+ 1;
             }
         }
         send("OK");
         recieve(null);
-        return name;
+
+        ServerType type = new ServerType(name, serverInstanceCount);
+        return type;
     }
 
     private String recieve(String expectedRespStr) {
         String resp = "";
-
-        // if we are expecting a resposne
 
         try {
             resp = in.readLine();

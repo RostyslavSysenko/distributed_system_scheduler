@@ -15,7 +15,7 @@ public class Client_entrypoint {
 
         Client_scheduler client = new Client_scheduler();
         client.start(ip,port);
-        client.atl_scheduling();
+        client.lrr_scheduling();
         client.quit(null);
     }
 }
