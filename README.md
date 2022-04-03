@@ -7,8 +7,8 @@ ds-sim is a set of software tools used for simulating distributed system. ds-ser
 
 ## Instructions for use
 1. Install ubantu if dont have already
-2. download this repo & open clientCode folder in your terminal
-3. run "•	./ds-server -c [configFileLocation] -p 50018 -n -v brief" to start ds-server
+2. download this repo & open "executables" folder in your terminal
+3. run "./ds-server -c [configFileLocation] -n -v brief" to start ds-server
 4. run "java Client_entrypoint" to start ds-client
 
 ## Skills Learnt

@@ -5,7 +5,6 @@ class Client_scheduler {
     private Socket clientSocket;
     private BufferedReader in;
     private BufferedOutputStream out;
-
     private InetAddress ip;
     private int port;
 
@@ -59,7 +58,7 @@ class Client_scheduler {
     }
 
     public void lrr_scheduling() {
-        String jobStr;
+        String response;
         ServerType largerServerInfo = null;
         String largestServerName = null;
         int largestServerCount = 0;
@@ -67,7 +66,7 @@ class Client_scheduler {
 
         while (true) {
             send("REDY");
-            jobStr = recieve(null);
+            response = recieve(null);
 
             //get largest server info if we dont know it yet
             if(largerServerInfo == null ){
@@ -77,11 +76,11 @@ class Client_scheduler {
             }
 
             //Do the scheduling
-            if (Job.noMoreJobsAvail(jobStr)) {
+            if (Job.noMoreJobsAvail(response)) {
                 break;
-            } else if (Job.regularJobForScheduling(jobStr)) {
+            } else if (Job.regularJobForScheduling(response)) {
                 //schedule to the next available largest server in a line
-                scheduleJob(jobStr, largestServerName, nextInLineServerId);
+                scheduleJob(response, largestServerName, nextInLineServerId);
                 nextInLineServerId = (nextInLineServerId+1) % largestServerCount;
             }
         }
