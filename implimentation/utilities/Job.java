@@ -1,3 +1,4 @@
+package utilities;
 
 public class Job {
     /**
@@ -7,14 +8,14 @@ public class Job {
      * whether the message is a notification of a completed job, new job or of
      * no more jobs being available.
      */
-    int createTimeSec;
-    int id;
-    int estimExecTimeSec;
-    int coreReq;
-    int ramReqMb;
-    int DiskReqMb;
+    public int createTimeSec;
+    public int id;
+    public int estimExecTimeSec;
+    public int coreReq;
+    public int ramReqMb;
+    public int DiskReqMb;
 
-    static Job parseJobFromREDY(String jobStr) {
+    public static Job parseJobFromREDY(String jobStr) {
         String[] jobArr = jobStr.split("\\s+");
         int jobCreateTimeSec = Integer.parseInt(jobArr[1]);
         int jobId = Integer.parseInt(jobArr[2]);
@@ -26,7 +27,7 @@ public class Job {
         return job;
     }
 
-    static boolean noMoreJobsAvail(String reply) {
+    public static boolean noMoreJobsAvail(String reply) {
         if (reply.equals("NONE")) {
             return true;
         } else {
@@ -34,7 +35,7 @@ public class Job {
         }
     }
 
-    static boolean regularJobForScheduling(String reply) {
+    public static boolean regularJobForScheduling(String reply) {
         if (reply.startsWith("JOBN")) {
             return true;
         } else {
@@ -42,7 +43,7 @@ public class Job {
         }
     }
 
-    Job(int pCreateTimeSec, int pId, int pEstimExecTimeSec, int pCoreReq, int pRAMReqMb, int pDiskReqMb) {
+    public Job(int pCreateTimeSec, int pId, int pEstimExecTimeSec, int pCoreReq, int pRAMReqMb, int pDiskReqMb) {
         createTimeSec = pCreateTimeSec;
         id = pId;
         estimExecTimeSec = pEstimExecTimeSec;
