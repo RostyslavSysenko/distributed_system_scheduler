@@ -82,6 +82,8 @@ public class LRR implements SchedulingStrategy{
         }
 
         ServerType type = new ServerType(name, serverInstanceCount);
-        return type;
+
+        assert type != null; //post-condition check
+        return type; 
     }
 }

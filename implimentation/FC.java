@@ -37,16 +37,16 @@ public class FC implements SchedulingStrategy{
         /**
          * gets a valid job and outputs the first server that is capable to do that job
          */
+        assert job != null; //pre-condition test
+
         Server server = null;
         
         String msgToServer = "GETS Capable " + job.coreReq + " " + job.ramReqMb + " " + job.DiskReqMb;
         ArrayList<Server> srvrLst = communicator.getServersFromGETS(msgToServer);
 
-        try{
-            server = srvrLst.get(0);
-        } catch(Exception e) {
-            System.out.print("Some Problem occured");
-        }
+        
+        assert srvrLst.size() >1; //post-condition test
+        server = srvrLst.get(0);
         
         return server;
     }

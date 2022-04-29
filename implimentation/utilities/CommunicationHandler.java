@@ -88,7 +88,7 @@ public class CommunicationHandler {
 
     public ArrayList<Server> getServersFromGETS(String command) {
         /**
-         * This method is designed to accomodate methods like GETS All and GETS Capable where the first response is the number of things that will later be sent and the second thing are those servers. The purpose of this method is to allow for the code to be more decoupled and cleaner. This method first asks for the number of records that will be sent back as a result of the input command and then it goes through those lines of response and parses them
+         * This method is designed to accomodate methods like GETS All and GETS Capable where the first response is the number of things that will later be sent and the second thing are those servers. The purpose of this method is to allow for the code to be more decoupled and cleaner. This method first asks for the number of records that will be sent back as a result of the input command and then it goes through those lines of response and parses them. Due to how our assignmed is structured we are confident that there will never be a job which can not be done by at least 1 server
          */
 
         String msg;

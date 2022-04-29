@@ -12,23 +12,22 @@ public class Scheduler {
      * level communication
      */
 
-    private SchedulingStrategy scheduler;
-    CommunicationHandler communicator;
+    private SchedulingStrategy scheduler = null;
+    CommunicationHandler communicator = null;
 
     Scheduler(){
         communicator = new CommunicationHandler();
      }
 
     public void setScheduler(SchedulingStrategy inScheduler){
+        assert communicator != null; //pre-condition test
+
         scheduler = inScheduler;
         scheduler.setCommunicator(communicator);
      }
 
     public void executeScheduler(){
-         try{
-            scheduler.schedule();
-         }catch(Exception e) {
-            System.out.println(e);
-         }
+        assert scheduler != null; //pre-condition test
+        scheduler.schedule();
      }
 }
