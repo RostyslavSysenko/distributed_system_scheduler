@@ -5,7 +5,7 @@ import utilities.Job;
 import utilities.Server;
 import utilities.ServerType;
 
-public class LRR implements SchedulingStrategy{
+public class LRR_alg implements SchedulingStrategy{
 
     CommunicationHandler communicator;
 

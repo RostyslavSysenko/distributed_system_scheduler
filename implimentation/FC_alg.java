@@ -4,7 +4,7 @@ import utilities.CommunicationHandler;
 import utilities.Job;
 import utilities.Server;
 
-public class FC implements SchedulingStrategy{
+public class FC_alg implements SchedulingStrategy{
 
     CommunicationHandler communicator;
 

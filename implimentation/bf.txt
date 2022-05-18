@@ -1,0 +1,66 @@
+# ds-sim server 14-Feb, 2022 @ MQ - client-server
+# Server-side simulator started with './ds-server -c ds-config01--wk9.xml -v brief'
+# Waiting for connection to port 50000 of IP address 127.0.0.1
+RCVD HELO
+SENT OK
+RCVD AUTH ubuntu
+# Welcome  ubuntu!
+# The system information can be read from 'ds-system.xml'
+SENT OK
+RCVD REDY
+SENT JOBN 32 0 728 1 700 600
+RCVD SCHD 0 tiny 0
+t:         32 job     0 (waiting) on # 0 of server tiny (booting) SCHEDULED
+SENT OK
+RCVD REDY
+SENT JOBN 54 1 1144 1 400 800
+RCVD SCHD 1 tiny 1
+t:         54 job     1 (waiting) on # 1 of server tiny (booting) SCHEDULED
+SENT OK
+RCVD REDY
+SENT JOBN 55 2 260 2 900 1600
+RCVD SCHD 2 small 0
+t:         55 job     2 (waiting) on # 0 of server small (booting) SCHEDULED
+SENT OK
+RCVD REDY
+t:         72 job     0 on # 0 of server tiny RUNNING
+t:         94 job     1 on # 1 of server tiny RUNNING
+t:         95 job     2 on # 0 of server small RUNNING
+SENT JOBN 98 3 80 2 500 3300
+RCVD SCHD 3 small 1
+t:         98 job     3 (waiting) on # 1 of server small (booting) SCHEDULED
+SENT OK
+RCVD REDY
+SENT JOBN 105 4 401 4 1600 4600
+RCVD SCHD 4 medium 0
+t:        105 job     4 (waiting) on # 0 of server medium (booting) SCHEDULED
+SENT OK
+RCVD REDY
+t:        138 job     3 on # 1 of server small RUNNING
+t:        165 job     4 on # 0 of server medium RUNNING
+t:        182 job     3 on # 1 of server small COMPLETED
+SENT JCPL 182 3 small 1
+RCVD REDY
+t:        272 job     2 on # 0 of server small COMPLETED
+SENT JCPL 272 2 small 0
+RCVD REDY
+t:        472 job     4 on # 0 of server medium COMPLETED
+SENT JCPL 472 4 medium 0
+RCVD REDY
+t:       1902 job     0 on # 0 of server tiny COMPLETED
+SENT JCPL 1902 0 tiny 0
+RCVD REDY
+t:       2287 job     1 on # 1 of server tiny COMPLETED
+SENT JCPL 2287 1 tiny 1
+RCVD REDY
+SENT NONE
+RCVD QUIT
+SENT QUIT
+# -------------------------------------------------------------------------------------
+# 2 tiny servers used with a utilisation of 100.00 at the cost of $0.45
+# 2 small servers used with a utilisation of 100.00 at the cost of $0.02
+# 1 medium servers used with a utilisation of 100.00 at the cost of $0.07
+# ==================================== [ Summary ] ====================================
+# actual simulation end time: 2287, #jobs: 5 (failed 0 times)
+# total #servers used: 5, avg util: 100.00% (ef. usage: 100.00%), total cost: $0.54
+# avg waiting time: 44, avg exec time: 910, avg turnaround time: 954
