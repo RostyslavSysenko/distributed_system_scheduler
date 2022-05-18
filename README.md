@@ -13,8 +13,11 @@ ds-sim is a set of software tools used for simulating distributed system. ds-ser
 ### Commands
 - start ds-server: run "./ds-server -c [configFileLocationNoQuotes] -n -v brief" 
 - start our client: run "java Client_entrypoint"
-- run tests: run "./demoS1.sh -n Client_entrypoint.class"
+- run tests for stage 1: run "./demoS1.sh -n Client_entrypoint.class"
 - if there are any problems during testing stage: run "fuser -k -n tcp 50000" to terminate all processes running on the default port. It usually helps
+
+### Note to myself
+- run visualisation tool from "master" folder on local mac terminal (not ubantu) using: python3 ./ds_viz.py configFile log output with -v brief -c cellSpace -s ScalingFactor
 
 ## Skills Learnt
 - Socket programming
