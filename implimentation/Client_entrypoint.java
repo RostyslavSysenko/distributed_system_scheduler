@@ -23,8 +23,7 @@ public class Client_entrypoint {
         Scheduler scheduler = new Scheduler();
         
         scheduler.communicator.start(ip, port);
-        //scheduler.setScheduler(new LRR());
-        //scheduler.setScheduler(new FR());
+        scheduler.setScheduler(new SEQ());
         scheduler.executeScheduler();
         scheduler.communicator.quit(null, false);
     }

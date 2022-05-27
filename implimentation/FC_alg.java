@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import utilities.CommunicationHandler;
 import utilities.Job;
@@ -42,9 +43,8 @@ public class FC_alg implements SchedulingStrategy{
         Server server = null;
         
         String msgToServer = "GETS Capable " + job.coreReq + " " + job.ramReqMb + " " + job.DiskReqMb;
-        ArrayList<Server> srvrLst = communicator.getServersFromGETS(msgToServer);
+        LinkedList<Server> srvrLst = communicator.getServersFromGETS(msgToServer);
 
-        
         assert srvrLst.size() >1; //post-condition test
         server = srvrLst.get(0);
         

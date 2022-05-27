@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import utilities.CommunicationHandler;
 import utilities.Job;
@@ -68,7 +69,7 @@ public class LRR_alg implements SchedulingStrategy{
         String name = "";
         int serverInstanceCount = 0;
 
-        ArrayList<Server> srvrLst = communicator.getServersFromGETS("GETS All");
+        LinkedList<Server> srvrLst = communicator.getServersFromGETS("GETS All");
 
         for (Server server : srvrLst) {
             if (server.cpuCores > maxCores) {

@@ -3,6 +3,7 @@ import javax.management.InvalidAttributeValueException;
 
 import java.net.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.io.*;
 
 public class CommunicationHandler {
@@ -86,13 +87,13 @@ public class CommunicationHandler {
         recieve(null);
     }
 
-    public ArrayList<Server> getServersFromGETS(String command) {
+    public LinkedList<Server> getServersFromGETS(String command) {
         /**
          * This method is designed to accomodate methods like GETS All and GETS Capable where the first response is the number of things that will later be sent and the second thing are those servers. The purpose of this method is to allow for the code to be more decoupled and cleaner. This method first asks for the number of records that will be sent back as a result of the input command and then it goes through those lines of response and parses them. Due to how our assignmed is structured we are confident that there will never be a job which can not be done by at least 1 server
          */
 
         String msg;
-        ArrayList<Server>list = new ArrayList<Server>();
+        LinkedList<Server>list = new LinkedList<Server>();
 
         send(command); // command that we send to get a response back
         String dataResponse = recieve(null); //reciveving some info about how big the response list will be
@@ -109,6 +110,17 @@ public class CommunicationHandler {
         recieve(null);
 
         return list;
+    }
+
+    public int getEstimatedTimeLengthOfQuedJobs(Server server){
+        assert server != null;
+
+        send("EJWT " + server.name + " " + server.idAmongName);
+        int estimatedTime = Integer.parseInt(recieve(null))  ;
+
+        assert estimatedTime > 0;
+        
+        return estimatedTime;
     }
 
     public String recieve(String expectedRespStr) {
@@ -135,7 +147,7 @@ public class CommunicationHandler {
         } catch (Exception e){
             quit(e.getMessage(), true);
         }
-        System.out.println("Recieved From server: " + resp);
+        //System.out.println("Recieved From server: " + resp);
         return resp;
     }
 
@@ -152,7 +164,7 @@ public class CommunicationHandler {
         try {
             out.write(strByteArr);
             out.flush();
-            System.out.println("Sent from client in text: " + rowMsgStr);
+            //System.out.println("Sent from client in text: " + rowMsgStr);
         } catch (Exception e) {
             quit("Something went wrong when sending message", true);
         }
