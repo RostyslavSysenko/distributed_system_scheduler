@@ -21,13 +21,13 @@ ds-sim is a set of software tools used for simulating distributed system. ds-ser
   2. run visualisation: {python3 ./ds_viz.py configFile log -c cellSpace -s ScalingFactor}
 - running tests:
   1. move to folder using: {cd "/Users/ross/Uni cloud/2022 - uni/distributed systems/project/code/implimentation"}
-  2. run tests using: {./stage2-test-x86 "java Client_entrypoint" -o tt -n"}
+  2. run tests using: {./stage2-test-x86 "java [-ea]Client_entrypoint" -o tt -n} where the inclusion of -en symbolises that assertions are enabled
 - running ds-server:
   1. from ubantu cd using: {cd "/Users/ross/Uni cloud/2022 - uni/distributed systems/project/code/implimentation"}
   1. run {./ds-server -c configFile -n -v brief > out.txt}
 - running ds-client:
   1. from from ubantu cd using: {cd "/Users/ross/Uni cloud/2022 - uni/distributed systems/project/code/implimentation"}
-  2. recompile the java program using: {javac Client_entrypoint}
+  2. recompile the java program using: {javac Client_entrypoint.java}
   3. run {java Client_entrypoint}
 
 ## Skills Learnt

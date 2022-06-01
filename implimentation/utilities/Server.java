@@ -13,7 +13,6 @@ public class Server {
     public int jobsWaiting;
     public int jobsExecuting;
     public Integer estimatedWaitTimeOfQueuedJobs = null;
-    public Float fitnessScore;
 
     Server(String inName,
             int inIdAmongName,
@@ -36,9 +35,6 @@ public class Server {
         jobsExecuting = inJobsExecuting;
     }
 
-    public Float getFitnessScore() {
-        return fitnessScore;
-    }
 
     public Integer getQueueWaitTime() {
         return estimatedWaitTimeOfQueuedJobs;
@@ -47,6 +43,10 @@ public class Server {
     public boolean immidiatelyAvailable(Job job){
         return this.status.equals("idle");
     }
+    public boolean isCapable(Job job){
+        return this.cpuCores >= job.coreReq && this.diskSpace >= job.DiskReqMb && this.memory >= job.ramReqMb;
+    }
+    
 
     public static Server parseServerInfoFromGETSALL(String msg) {
         String[] msgArr = msg.split("\\s+");

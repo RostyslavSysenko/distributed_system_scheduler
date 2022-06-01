@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import utilities.CommunicationHandler;
+import utilities.ServerFinder;
 import utilities.Job;
-import utilities.Server;
 import utilities.ServerType;
 
 public class LRR_alg implements SchedulingStrategy{
@@ -43,7 +40,7 @@ public class LRR_alg implements SchedulingStrategy{
             
             // get largest server info if we dont know it yet
             if (largerServerInfo == null) {
-                largerServerInfo = getServerWithMostCoresInfo();
+                largerServerInfo = ServerFinder.getServerWithMostCoresInfo(communicator);
                 largestServerName = largerServerInfo.name;
                 largestServerCount = largerServerInfo.availableInstances;
             }
@@ -61,30 +58,4 @@ public class LRR_alg implements SchedulingStrategy{
         }
     }
 
-    private ServerType getServerWithMostCoresInfo() {
-        /**
-         * This method goes through the list of servers, finds the first biggest one in respect to CPU and then returns some info about that server
-         */
-        int maxCores = 0;
-        String name = "";
-        int serverInstanceCount = 0;
-
-        LinkedList<Server> srvrLst = communicator.getServersFromGETS("GETS All");
-
-        for (Server server : srvrLst) {
-            if (server.cpuCores > maxCores) {
-                maxCores = server.cpuCores;
-                name = server.name;
-                serverInstanceCount = 0;
-            }
-            if (server.name.equals(name)) {
-                serverInstanceCount = serverInstanceCount + 1;
-            }
-        }
-
-        ServerType type = new ServerType(name, serverInstanceCount);
-
-        assert type != null; //post-condition check
-        return type; 
-    }
 }

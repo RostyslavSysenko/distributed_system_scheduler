@@ -1,14 +1,12 @@
 package utilities;
 import javax.management.InvalidAttributeValueException;
-
 import java.net.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.io.*;
 
 public class CommunicationHandler {
     /**
-     * This class facilitates the communication between client and server. It doesnt impliment any algorithms but instead it takes care of low level functions that are related to communication between client and server
+     * This class facilitates the communication between client and server. It doesnt impliment any algorithms but instead it takes care of low level data communication.
      */
 
     private Socket clientSocket;
@@ -20,7 +18,7 @@ public class CommunicationHandler {
     public void start(String inIP, String inPort) {
         /**
          * This method opens up a socket, then sets up input and output channels and
-         * does the handshake
+         * does the handshake and helps us with low level communication between ds-sim and our client
          */
 
         // parse ip and port
@@ -91,22 +89,28 @@ public class CommunicationHandler {
         /**
          * This method is designed to accomodate methods like GETS All and GETS Capable where the first response is the number of things that will later be sent and the second thing are those servers. The purpose of this method is to allow for the code to be more decoupled and cleaner. This method first asks for the number of records that will be sent back as a result of the input command and then it goes through those lines of response and parses them. Due to how our assignmed is structured we are confident that there will never be a job which can not be done by at least 1 server
          */
-
         String msg;
         LinkedList<Server>list = new LinkedList<Server>();
 
         send(command); // command that we send to get a response back
         String dataResponse = recieve(null); //reciveving some info about how big the response list will be
+        
+        //System.out.println("MESAGE: " + dataResponse + "  " + command);   //debug line
+        
         String numServersStr = dataResponse.split("\\s+")[1]; 
         int numServersInt = Integer.parseInt(numServersStr);
-
+        
         send("OK"); //acknowledging that we go the data due to requirement of protocol
-        for (int i = 0; i < numServersInt; i++) {
-            msg = recieve(null);
-            Server server = Server.parseServerInfoFromGETSALL(msg);
-            list.add(server);
+
+        if(numServersInt != 0){
+            for (int i = 0; i < numServersInt; i++) {
+                msg = recieve(null);
+                Server server = Server.parseServerInfoFromGETSALL(msg);
+                list.add(server);
+            }
+            send("OK");
         }
-        send("OK");
+        
         recieve(null);
 
         return list;
@@ -118,8 +122,7 @@ public class CommunicationHandler {
         send("EJWT " + server.name + " " + server.idAmongName);
         int estimatedTime = Integer.parseInt(recieve(null))  ;
 
-        assert estimatedTime > 0;
-        
+        assert estimatedTime >= 0; //post condition
         return estimatedTime;
     }
 

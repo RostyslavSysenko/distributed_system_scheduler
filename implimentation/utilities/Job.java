@@ -43,6 +43,10 @@ public class Job {
         }
     }
 
+    public String getJobRequirementsStringForGETS(){
+        return "" +this.coreReq + " " + this.ramReqMb + " " + this.DiskReqMb;
+    }
+
     public Job(int pCreateTimeSec, int pId, int pEstimExecTimeSec, int pCoreReq, int pRAMReqMb, int pDiskReqMb) {
         createTimeSec = pCreateTimeSec;
         id = pId;
