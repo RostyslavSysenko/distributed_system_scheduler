@@ -16,11 +16,11 @@ public class Client_entrypoint {
         Scheduler scheduler = new Scheduler(ip, port);
 
         //handling command line arguments in a simple way
-        if(args[0] == "FATFC"){
+        if(args[0].equals("FATFC") ){
             scheduler.setScheduler(new FATFC_alg());
-        } else if (args[0] == "FC"){
+        } else if (args[0].equals("FC")){
             scheduler.setScheduler(new FC_alg());
-        } else if (args[0] == "LRR"){
+        } else if (args[0].equals("LRR")){
             scheduler.setScheduler(new LRR_alg());
         } else {
             System.err.print("invalid alg name");
