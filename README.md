@@ -14,6 +14,9 @@ ds-sim is a set of software tools used for simulating distributed system. ds-ser
 - start ds-server: run "./ds-server -c [configFileLocationNoQuotes] -n -v brief" 
 - start our client: run "java Client_entrypoint"
 - if there are any problems during testing stage: run "fuser -k -n tcp 50000" to terminate all processes running on the default port. It usually helps
+- running tests
+  1. move to "code" folder
+  2. run tests using: {./stage2-test-x86 "java Client_entrypoint" -o tt -n}
 
 ### Note to myself
 - run visualisation tool:
