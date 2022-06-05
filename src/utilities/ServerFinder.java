@@ -21,7 +21,6 @@ public class ServerFinder {
         String msgToServer = "GETS Avail " + job.getJobRequirementsStringForGETS();
         LinkedList<Server> srvrLst = communicator.getServersFromGETS(msgToServer, false);
         Server server = null;
-
         server = srvrLst.get(0);
         return server;
     }
